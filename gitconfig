@@ -1,8 +1,8 @@
 [user]
-    name = Timothy Messier
-    email = tim.messier@gmail.com
+    name = Adrian Titus
+    email = a.titus1@gmail.com
 [github]
-    user = shadowfax-chc
+    user = adr1anx
 [core]
     editor = vim
     excludesfile = ~/.gitignore_global

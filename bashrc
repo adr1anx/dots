@@ -12,28 +12,13 @@ set -o vi
 shopt -s cdspell
 
 
-# Set go path for go development
-export GOPATH=$HOME/go
-
 # Path
 PATH="/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/sbin:/usr/sbin"
 test -d "/opt/bin" &&
 PATH="$PATH:/opt/bin"
-test -d "/opt/android-sdk-update-manager/platform-tools" &&
-PATH="/opt/android-sdk-update-manager/platform-tools:$PATH"
-test -d "/opt/android-sdk-update-manager/tools" &&
-PATH="/opt/android-sdk-update-manager/tools:$PATH"
-test -d "/usr/games/bin" &&
-PATH="/usr/games/bin:$PATH"
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
-test -d "$HOME/bin/eclipse" &&
-PATH="$HOME/bin/eclipse:$PATH"
-test -d "/usr/local/heroku/bin" &&
-PATH="/usr/local/heroku/bin:$PATH"
 export PATH
-test -d "$GOPATH/bin" &&
-PATH="$GOPATH/bin:$PATH"
 
 
 # Editor and Pager
@@ -159,18 +144,6 @@ fi
 
 [[ -f $HOME/.bashrc_extra ]] && source $HOME/.bashrc_extra
 
-test -d $HOME/.rvm/bin &&
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-function cd(){
-    if [[ $# -eq 0 ]]; then
-        builtin cd $(git rev-parse --show-toplevel 2> /dev/null)
-    else
-        builtin cd "$@"
-    fi
-}
 
 function ve() {
     # Use cwd for virtualenv name
@@ -200,34 +173,4 @@ function rmpyc() {
     find . -name "*.pyc" -exec rm -rf {} \;
 }
 
-function srt() {
-    if [[ $# -eq 1 ]]; then
-        STEAM_RUNTIME_TARGET_ARCH="$1"
-    else
-        STEAM_RUNTIME_TARGET_ARCH="amd64"
-    fi
-    if [[ "$(uname -m)" == "x86_64" ]]; then
-        STEAM_RUNTIME_HOST_ARCH="amd64"
-    else
-        STEAM_RUNTIME_HOST_ARCH="i386"
-    fi
-    local runtime="$HOME/opt/steam-runtime-sdk_2013-09-05/runtime/"
-    STEAM_RUNTIME_ROOT="$runtime/${STEAM_RUNTIME_TARGET_ARCH}"
-    export STEAM_RUNTIME_HOST_ARCH STEAM_RUNTIME_TARGET_ARCH STEAM_RUNTIME_ROOT
-    if [[ -z $NOSRT_PATH ]]; then
-        export NOSRT_PATH="$PATH"
-    fi
-    PATH="$HOME/opt/steam-runtime-sdk_2013-09-05/bin:$PATH"
-    if [[ -z $NOSRT_LD_LIBRARY_PATH ]]; then
-        export NOSRT_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
-    fi
-    export LD_LIBRARY_PATH="$runtime/i386/lib/i386-linux-gnu:$runtime/i386/lib:$runtime/i386/usr/lib/i386-linux-gnu:$runtime/i386/usr/lib:$runtime/amd64/lib/x86_64-linux-gnu:$runtime/amd64/lib:$runtime/amd64/usr/lib/x86_64-linux-gnu:$runtime/amd64/usr/lib:$NOSRT_LD_LIBRARY_PATH"
-    export SRT="enabled"
-}
 
-function usrt() {
-    PATH="$NOSRT_PATH"
-    LD_LIBRARY_PATH="$NOSRT_LD_LIBRARY_PATH"
-    export PATH
-    unset STEAM_RUNTIME_HOST_ARCH STEAM_RUNTIME_TARGET_ARCH STEAM_RUNTIME_ROOT NOSRT_PATH SRT NOSRT_LD_LIBRARY_PATH
-}
