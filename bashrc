@@ -128,7 +128,7 @@ alias vm="mv"
 alias got='git'
 
 # Django shortcuts
-alias runserver="./manage.py runserver"
+alias runserver="./manage.py runserver 0.0.0.0:8010"
 alias prunserver="./manage.py runserver 0.0.0.0:8000"
 
 # For spectrwm
