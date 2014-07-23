@@ -42,9 +42,9 @@ export PAGER MANPAGER
 
 # Default prompt
 if [[ ${EUID} == 0 ]]; then
-    PS1='\[\e[01;31m\]\$\[\e[0m\] '
+    PS1="\\u@\\h:\\w# "
 else
-    PS1='\[\e[0m\]\$ '
+    PS1="\\w$ "
 fi
 
 # If sshed include hostname
