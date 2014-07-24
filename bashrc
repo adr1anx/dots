@@ -130,6 +130,7 @@ alias got='git'
 # Django shortcuts
 alias runserver="./manage.py runserver 0.0.0.0:8010"
 alias prunserver="./manage.py runserver 0.0.0.0:8000"
+alias atom="sudo atom"
 
 # For spectrwm
 unset LD_PRELOAD
@@ -172,5 +173,3 @@ function ve() {
 function rmpyc() {
     find . -name "*.pyc" -exec rm -rf {} \;
 }
-
-
