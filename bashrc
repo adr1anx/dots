@@ -173,3 +173,5 @@ function ve() {
 function rmpyc() {
     find . -name "*.pyc" -exec rm -rf {} \;
 }
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
